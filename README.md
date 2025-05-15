@@ -6,7 +6,8 @@
 - [Data Collection](#data-collection)
 - [Data Preprocessing](#data-preprocessing)
 - [CNN Model Structure](#cnn-model-structure)
-- [Creating and Saving Augmented Samples](#creating-and-saving-augmented-samples)
+- [Compiling the Model](#compiling-the-model)
+- [Results and Insights](#results-and-insights)
 - [Reference and Inspiration](#reference-and-inspiration)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -27,6 +28,8 @@ The Fashion MNIST dataset is automatically downloaded and loaded directly from t
 - **Test Set:** 10,000 images and their corresponding labels.
 
 Each image is a 28x28 pixel grayscale image representing one of 10 clothing categories (e.g., T-shirt/top, trousers, pullover, dress, coat, sandal, shirt, sneaker, bag, ankle boot).
+
+Link to the dataset -  [Fashion MNIST Dataset](https://www.kaggle.com/datasets/zalando-research/fashionmnist)
 
 ## Data Preprocessing
 The raw image data from the Fashion MNIST dataset is preprocessed to make it suitable for input into the CNN model. The preprocessing steps include:
@@ -50,50 +53,15 @@ The model is configured for training using `model.compile()`. This involves:
 
 The `build_model` function returns the compiled model.
 
+## Results and Insights
 
+After running the Hyperparameter search using Keras Tuner, the results are stored in the specified output directory. You can analyze these results to understand:
+-   **Best Hyperparameter Combination:** Keras Tuner identifies the combination of hyperparameters that yielded the best performance based on the specified objective (validation accuracy in this case).
+-   **Performance of Different Configurations:** Review the performance metrics for each hyperparameter combination explored during the search. This provides insights into how different hyperparameter choices impact the model's performance.
+-   **Model Training Progress:** The training process for the best model shows the convergence of loss and accuracy over epochs. Observing the training and validation curves can help identify potential overfitting or underfitting issues.
 
+The code retrieves the best model found by the tuner and trains it for additional epochs. The summary of the best model architecture is also printed.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Fashion MNIST Dataset - https://www.kaggle.com/datasets/zalando-research/fashionmnist
-
-Keras Tuner Blog - https://keras.io/keras_tuner/
+## Reference and Inspiration
+This repository is based on the concepts presented in the Keras Tuner blog post.
+Link to the blog - [Keras Tuner Blog](https://keras.io/keras_tuner/)

@@ -64,4 +64,23 @@ The code retrieves the best model found by the tuner and trains it for additiona
 
 ## Reference and Inspiration
 This repository is based on the concepts presented in the Keras Tuner blog post.
+
 Link to the blog - [Keras Tuner Blog](https://keras.io/keras_tuner/)
+
+## Usage
+To run the project, follow these steps:
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/Fashion-MNIST--CNN-with-Keras-Tuner.git
+```
+2. Navigate to the project directory:
+```bash
+cd OptimizeCNNModel
+```
+4. Run the Jupyter notebook:
+```bash
+jupyter notebook OptimizeCNNModel.ipynb
+```
+
+## Contributing
+Contributions are welcome! Please create a new branch for any changes and submit a pull request for review.

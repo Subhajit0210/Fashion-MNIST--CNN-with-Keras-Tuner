@@ -5,7 +5,7 @@
 - [Dependencies](#dependencies)
 - [Data Collection](#data-collection)
 - [Data Preprocessing](#data-preprocessing)
-- [Data Collection](#data-collection)
+- [CNN Model Structure](#cnn-model-structure)
 - [Creating and Saving Augmented Samples](#creating-and-saving-augmented-samples)
 - [Reference and Inspiration](#reference-and-inspiration)
 - [Usage](#usage)
@@ -34,36 +34,21 @@ The raw image data from the Fashion MNIST dataset is preprocessed to make it sui
 -  **Reshaping:** The images are reshaped to have a 4-dimensional shape `(number_of_images, height, width, channels)`. For the Fashion MNIST dataset, which consists of grayscale images, the shape becomes `(number_of_images, 28, 28, 1)`. This reshaping is crucial because CNNs typically expect input data in this format to apply convolutional filters and extract spatial features effectively. The added dimension for 'channels' (1 for grayscale) is necessary for compatibility with the convolutional layers.
 
 
-## Building the CNN Model Structure
+## CNN Model Structure
+The CNN model is built using the Keras Sequential API and defined within the `build_model` function. Hyperparameters for the model layers and optimizer are exposed for tuning by Keras Tuner.
 
-The CNN model is built using the Keras Sequential API, which allows for creating a linear stack of layers [1]. The `build_model` function defines the model structure and incorporates hyperparameters that will be tuned by Keras Tuner.
-
-The model consists of the following layers:
-
-1.  **Convolutional Layers (`Conv2D`):**
-    - These layers apply convolutional filters to the input images to extract features such as edges and textures.
-    - The number of filters and the kernel size are defined as hyperparameters to be tuned by Keras Tuner using `hp.Int` and `hp.Choice` respectively.
-    - The ReLU activation function is used in these layers to introduce non-linearity.
-    - The first convolutional layer specifies the `input_shape` of the data `(28, 28, 1)`.
-
-2.  **Flatten Layer (`Flatten`):**
-    - This layer transforms the multi-dimensional output of the convolutional layers into a one-dimensional vector. This is necessary to connect the convolutional part of the network to the dense layers.
-
-3.  **Dense Layers (`Dense`):**
-    - These are fully connected layers where each neuron in the layer is connected to every neuron in the previous layer.
-    - The number of units in the first dense layer is defined as a hyperparameter to be tuned using `hp.Int`.
-    - The ReLU activation function is used in the first dense layer.
-    - The final dense layer has 10 units (corresponding to the 10 clothing classes) and uses the softmax activation function. The softmax function outputs a probability distribution over the classes, indicating the likelihood of the input image belonging to each class.
+The model includes:
+-   **Convolutional Layers (`Conv2D`):** Extract features using tunable filters and kernel sizes. ReLU activation is applied.
+-   **Flatten Layer (`Flatten`):** Converts the multi-dimensional convolutional output to a 1D vector.
+-   **Dense Layers (`Dense`):** Fully connected layers for classification. The number of units in the first dense layer is tunable. The final dense layer has 10 units with a Softmax activation for class probability prediction.
 
 ## Compiling the Model
+The model is configured for training using `model.compile()`. This involves:
+-   **Optimizer:** Specifies the Adam optimizer with a tunable learning rate.
+-   **Loss Function:** Uses `sparse_categorical_crossentropy` for multi-class classification.
+-   **Metrics:** Monitors `accuracy` during training.
 
-After defining the layers, the model is compiled using `model.compile()`. This step configures the model for training by specifying:
-
--   **Optimizer:** The optimization algorithm used to update the model's weights during training. The Adam optimizer is used, and its learning rate is also defined as a hyperparameter to be tuned using `hp.Choice`.
--   **Loss Function:** The function that measures the difference between the model's predictions and the true labels. `sparse_categorical_crossentropy` is used, which is suitable for multi-class classification with integer labels.
--   **Metrics:** The metrics used to evaluate the model's performance during training and testing. `accuracy` is used to measure the percentage of correctly classified images.
-
-The `build_model` function returns the compiled model, ready for hyperparameter tuning and training.
+The `build_model` function returns the compiled model.
 
 
 
